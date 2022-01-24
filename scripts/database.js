@@ -32,11 +32,46 @@ const database = {
             sizeId: 2,
             styleId: 3,
             timestamp: 1614659931693
+        },
+        {
+            id: 2,
+            metalId: 3,
+            sizeId: 2,
+            styleId: 3,
+            timestamp: 1614659931693
         }
-    ]
+    ],
+    orderBuilder: {},
 }
 
 export const getMetals = () => {
     return database.metals.map(metal => ({...metal}))
 }
 
+//add getSizes()
+export const getSizes = () => {
+    return database.sizes.map(size => ({...size}))
+}
+
+// add getStyles()
+export const getStyles = () => {
+    return database.styles.map(style => ({...style}))
+}
+// add getOrders()
+
+export const getOrders = () => {
+    return database.customOrders.map(customOrder => ({...customOrder}))
+}
+
+// add set states
+export const setMetal = (id) => {
+    database.orderBuilder.metalId = id
+}
+
+export const setSize = (id) => {
+    database.orderBuilder.sizeId = id
+}
+
+export const setStyle = (id) => {
+    database.orderBuilder.styleId = id
+}

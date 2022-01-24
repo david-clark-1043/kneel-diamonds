@@ -6,6 +6,8 @@ const buildOrderListItem = (order) => {
     </li>`
 }
 
+// const orders = getOrders()
+
 export const Orders = () => {
     /*
         Can you explain why the state variable has to be inside
