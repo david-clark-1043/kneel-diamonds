@@ -1,10 +1,11 @@
-import { getOrders, getMetals, getStyles, getSizes } from "./database.js"
+import { getOrders, getMetals, getStyles, getSizes, getTypes } from "./dataAccess.js"
 
 const buildOrderListItem = (order) => {
 
     const metals = getMetals()
     const sizes = getSizes()
     const styles = getStyles()
+    const types = getTypes()
 
     // Remember that the function you pass to find() must return true/false
     const foundMetal = metals.find(
@@ -25,16 +26,23 @@ const buildOrderListItem = (order) => {
         }
     )
 
-    const totalCost = foundMetal.price + foundStyle.price + foundSize.price
+    const foundType = types.find(
+        (type) => {
+            return type.id === order.typeId
+        }
+    )
+
+    const totalCost = ( foundMetal.price + foundStyle.price + foundSize.price ) * foundType.multiple
 
     const costString = totalCost.toLocaleString("en-US", {
         style: "currency",
         currency: "USD"
     })
 
+    const date = new Date(order.timestamp).toDateString()
 
     return `<li>
-        Order #${order.id} was placed on ${order.timestamp} and cost ${costString}
+        Order #${order.id} was placed on ${date} and cost ${costString}
     </li>`
 }
 
