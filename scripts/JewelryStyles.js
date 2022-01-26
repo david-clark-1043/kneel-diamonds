@@ -1,24 +1,29 @@
-import { getStyles, setStyle } from "./database.js"
+import { getStyles, setStyle, getState } from "./dataAccess.js"
 
 const styles = getStyles()
 
-document.addEventListener(
-    "change",
-    (event) => {
-        if (event.target.name === "style") {
-            setStyle(parseInt(event.target.value))
-        }
-    }
-)
 
 export const JewelryStyles = () => {
     let html = "<ul>"
 
+    const state = getState()
+    let presetId = ""
+
+    if(state.styleId) {
+        presetId = state.styleId
+    }
+
     // Use .map() for converting objects to <li> elements
     const listItemsArray = styles.map(style => {
-        return `<li>
+        if(style.id === presetId) {
+            return `<li>
+            <input type="radio" name="style" value="${style.id}" checked /> ${style.style}
+        </li>`
+        } else {
+            return `<li>
             <input type="radio" name="style" value="${style.id}" /> ${style.style}
         </li>`
+        }
     })
 
 
